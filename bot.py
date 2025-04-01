@@ -1,8 +1,7 @@
 from flask import Flask, request
-from flask import Flask, request
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
-from telegram.ext import Dispatcher, CommandHandler, CallbackContext, CallbackQueryHandler, Bot
+from telegram.ext import Application, CommandHandler, CallbackContext, CallbackQueryHandler, Bot
 import requests
 import os
 from datetime import datetime, timedelta
@@ -13,7 +12,7 @@ BOT_TOKEN = '7396431893:AAEMiOriq9BWY9fo4J9PnKbiuwv0DjUSevU'
 CHANNELS = ["ShahilWebs", "FreeFireAPI_CHAT", "Shahilwebschat"]
 WEBHOOK_URL = 'https://like-bot-4g9g.onrender.com/'
 bot = Bot(BOT_TOKEN)
-dispatcher = Dispatcher(bot, None, workers=0)
+application = Application.builder().token(BOT_TOKEN).build()  # Use Application.builder() instead of Dispatcher
 
 user_verification_data = {}
 
@@ -123,7 +122,7 @@ def webhook():
     if request.method == "POST":
         json_str = request.get_json(force=True)
         update = Update.de_json(json_str, bot)
-        dispatcher.process_update(update)
+        application.process_update(update)  # Use application.process_update() instead of dispatcher.process_update()
         return "ok", 200
 
 def set_webhook():
@@ -134,8 +133,8 @@ def set_webhook():
 if __name__ == "__main__":
     set_webhook()
 
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("like", like))
-    dispatcher.add_handler(CallbackQueryHandler(verify, pattern='^verify$'))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("like", like))
+    application.add_handler(CallbackQueryHandler(verify, pattern='^verify$'))
 
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
