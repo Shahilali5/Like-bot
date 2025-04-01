@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 BOT_TOKEN = '7396431893:AAEMiOriq9BWY9fo4J9PnKbiuwv0DjUSevU'
 CHANNELS = ["ShahilWebs", "FreeFireAPI_CHAT", "Shahilwebschat"]
-WEBHOOK_URL = 'https://your-render-app-url.com/'
+WEBHOOK_URL = 'https://like-bot-4g9g.onrender.com/'
 bot = Bot(BOT_TOKEN)
 dispatcher = Dispatcher(bot, None, workers=0)
 
