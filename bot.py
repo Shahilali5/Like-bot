@@ -1,5 +1,7 @@
 from flask import Flask, request
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
+from flask import Flask, request
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.constants import ParseMode
 from telegram.ext import Dispatcher, CommandHandler, CallbackContext, CallbackQueryHandler, Bot
 import requests
 import os
